@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.sqldelight.hockey.R;
 import com.example.sqldelight.hockey.data.HockeyOpenHelper;
-import com.example.sqldelight.hockey.data.Team;
+import com.example.sqldelight.hockey.data.TeamImpl;
 
 public final class TeamsActivity extends Activity {
   @BindView(R.id.list) ListView teams;
@@ -29,7 +29,7 @@ public final class TeamsActivity extends Activity {
     ButterKnife.bind(this);
 
     SQLiteDatabase db = HockeyOpenHelper.getInstance(this).getReadableDatabase();
-    teamsCursor = db.rawQuery(Team.SELECT_ALL, new String[0]);
+    teamsCursor = db.rawQuery(TeamImpl.FACTORY.select_all().statement, new String[0]);
     adapter = new Adapter(this, teamsCursor);
     teams.setAdapter(adapter);
     teams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,7 +56,7 @@ public final class TeamsActivity extends Activity {
     }
 
     @Override public void bindView(View view, Context context, Cursor cursor) {
-      ((TeamRow) view).populate(Team.MAPPER.map(cursor));
+      ((TeamRow) view).populate(TeamImpl.MAPPER.map(cursor));
     }
   }
 }

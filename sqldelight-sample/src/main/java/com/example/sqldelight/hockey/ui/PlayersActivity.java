@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import com.example.sqldelight.hockey.R;
 import com.example.sqldelight.hockey.data.HockeyOpenHelper;
 import com.example.sqldelight.hockey.data.Player;
+import com.example.sqldelight.hockey.data.PlayerImpl;
 import com.squareup.sqldelight.SqlDelightStatement;
 
 public final class PlayersActivity extends Activity {
@@ -31,9 +32,9 @@ public final class PlayersActivity extends Activity {
     SQLiteDatabase db = HockeyOpenHelper.getInstance(this).getReadableDatabase();
     long teamId = getIntent().getLongExtra(TEAM_ID, -1);
     if (teamId == -1) {
-      playersCursor = db.rawQuery(Player.SELECT_ALL, new String[0]);
+      playersCursor = db.rawQuery(PlayerImpl.FACTORY.select_all().statement, new String[0]);
     } else {
-      SqlDelightStatement playerForTeam = Player.FACTORY.for_team(teamId);
+      SqlDelightStatement playerForTeam = PlayerImpl.FACTORY.for_team(teamId);
       playersCursor = db.rawQuery(playerForTeam.statement, playerForTeam.args);
     }
     players.setAdapter(new PlayersAdapter(this, playersCursor));
@@ -54,7 +55,7 @@ public final class PlayersActivity extends Activity {
     }
 
     @Override public void bindView(View view, Context context, Cursor cursor) {
-      Player.ForTeam playerForTeam = Player.FOR_TEAM_MAPPER.map(cursor);
+      PlayerImpl.ForTeam playerForTeam = PlayerImpl.FOR_TEAM_MAPPER.map(cursor);
       ((PlayerRow) view).populate(playerForTeam.player(), playerForTeam.team());
     }
   }

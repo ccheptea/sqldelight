@@ -22,23 +22,23 @@ public final class HockeyOpenHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
-    db.execSQL(Team.CREATE_TABLE);
-    db.execSQL(Player.CREATE_TABLE);
+    db.execSQL(TeamImpl.CREATE_TABLE);
+    db.execSQL(PlayerImpl.CREATE_TABLE);
 
-    Player.Insert_player insertPlayer = new PlayerModel.Insert_player(db, Player.FACTORY);
-    Team.Insert_team insertTeam = new Team.Insert_team(db, Team.FACTORY);
-    Team.Update_captain updateCaptain = new TeamModel.Update_captain(db);
+    PlayerImpl.Insert_player insertPlayer = new PlayerImpl.Insert_player(db, PlayerImpl.FACTORY);
+    TeamImpl.Insert_team insertTeam = new TeamImpl.Insert_team(db, TeamImpl.FACTORY);
+    TeamImpl.Update_captain updateCaptain = new TeamModel.Update_captain(db);
 
     // Populate initial data.
     insertTeam.bind("Anaheim Ducks", new GregorianCalendar(1993, 3, 1), "Randy Carlyle", true);
     long ducks = insertTeam.program.executeInsert();
 
     insertPlayer.bind("Corey", "Perry", 10, ducks, 30, 210, new GregorianCalendar(1985, 5, 16),
-        Player.Shoots.RIGHT, Player.Position.RIGHT_WING);
+        PlayerImpl.Shoots.RIGHT, PlayerImpl.Position.RIGHT_WING);
     insertPlayer.program.executeInsert();
 
     insertPlayer.bind("Ryan", "Getzlaf", 15, ducks, 30, 221, new GregorianCalendar(1985, 5, 10),
-        Player.Shoots.RIGHT, Player.Position.CENTER);
+        PlayerImpl.Shoots.RIGHT, PlayerImpl.Position.CENTER);
     long getzlaf = insertPlayer.program.executeInsert();
 
     updateCaptain.bind(getzlaf, ducks);
@@ -48,7 +48,7 @@ public final class HockeyOpenHelper extends SQLiteOpenHelper {
     long pens = insertTeam.program.executeInsert();
 
     insertPlayer.bind("Sidney", "Crosby", 87, pens, 28, 200, new GregorianCalendar(1987, 8, 7),
-        Player.Shoots.LEFT, Player.Position.CENTER);
+        PlayerImpl.Shoots.LEFT, PlayerImpl.Position.CENTER);
     long crosby = insertPlayer.program.executeInsert();
 
     updateCaptain.bind(crosby, pens);
@@ -58,11 +58,11 @@ public final class HockeyOpenHelper extends SQLiteOpenHelper {
     long sharks = insertTeam.program.executeInsert();
 
     insertPlayer.bind("Patrick", "Marleau", 12, sharks, 36, 220, new GregorianCalendar(1979, 9, 15),
-        Player.Shoots.LEFT, Player.Position.LEFT_WING);
+        PlayerImpl.Shoots.LEFT, PlayerImpl.Position.LEFT_WING);
     insertPlayer.program.executeInsert();
 
     insertPlayer.bind("Joe", "Pavelski", 8, sharks, 31, 194, new GregorianCalendar(1984, 7, 18),
-        Player.Shoots.RIGHT, Player.Position.CENTER);
+        PlayerImpl.Shoots.RIGHT, PlayerImpl.Position.CENTER);
     long pavelski = insertPlayer.program.executeInsert();
 
     updateCaptain.bind(pavelski, sharks);
@@ -77,7 +77,7 @@ public final class HockeyOpenHelper extends SQLiteOpenHelper {
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     switch (oldVersion) {
       case 1:
-        Team.Update_coach_for_team updateCoachForTeam = new TeamModel.Update_coach_for_team(db);
+        TeamImpl.Update_coach_for_team updateCoachForTeam = new TeamModel.Update_coach_for_team(db);
         updateCoachForTeam.bind("Randy Carlyle", "Anaheim Ducks");
         updateCoachForTeam.program.execute();
     }

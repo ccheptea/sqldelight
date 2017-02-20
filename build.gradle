@@ -1,3 +1,4 @@
+apply plugin: 'maven'
 ext {
   kotlinVersion = '1.0.5'
   antlrVersion = '4.5.3'
@@ -29,6 +30,9 @@ subprojects {
     repositories {
       mavenCentral()
       jcenter()
+      maven {
+        url SNAPSHOT_REPOSITORY_URL
+      }
     }
 
     dependencies {
@@ -38,6 +42,9 @@ subprojects {
   repositories {
     mavenCentral()
     jcenter()
+    maven {
+      url SNAPSHOT_REPOSITORY_URL
+    }
   }
 
   group = GROUP

@@ -1,4 +1,4 @@
-Test.sq line 27:9 - Ambiguous column name team
+Test.sq line 27:9 - Ambiguous column name teamImpl
   14    subqueries_for_days:
   15    SELECT *
   16    FROM hockey_player AS one
@@ -12,5 +12,5 @@ Test.sq line 27:9 - Ambiguous column name team
   24        )
   25      )
   26    )
-  27    GROUP BY team
+  27    GROUP BY teamImpl
                  ^^^^

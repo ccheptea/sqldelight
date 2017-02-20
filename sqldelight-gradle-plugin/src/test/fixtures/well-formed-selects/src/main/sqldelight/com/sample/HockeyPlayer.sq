@@ -3,25 +3,25 @@ CREATE TABLE hockey_player (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   number INTEGER AS Integer NOT NULL,
-  team INTEGER,
+  teamImpl INTEGER,
   age INTEGER AS Integer NOT NULL,
   weight REAL AS Float NOT NULL,
   birth_date TEXT AS java.util.Calendar NOT NULL,
   shoots TEXT AS com.sample.HockeyPlayer.Shoots NOT NULL,
   position TEXT AS com.sample.HockeyPlayer.Position NOT NULL,
-  FOREIGN KEY (team) REFERENCES team(_id)
+  FOREIGN KEY (teamImpl) REFERENCES teamImpl(_id)
 );
 
 select_all:
 SELECT *
 FROM hockey_player
-JOIN team ON hockey_player.team = team._id;
+JOIN teamImpl ON hockey_player.teamImpl = teamImpl._id;
 
 for_team:
 SELECT *
 FROM hockey_player
-JOIN team ON hockey_player.team = team._id
-WHERE team._id = ?;
+JOIN teamImpl ON hockey_player.teamImpl = teamImpl._id
+WHERE teamImpl._id = ?;
 
 join_friends:
 SELECT *
@@ -90,7 +90,7 @@ WHERE age=19;
 some_join:
 SELECT *
 FROM hockey_player
-INNER JOIN team ON hockey_player._id = team._id;
+INNER JOIN teamImpl ON hockey_player._id = teamImpl._id;
 
 multiple_values_for_query:
 SELECT *
@@ -120,4 +120,4 @@ LIMIT 1;
 inner_join:
 SELECT hockey_player.*
 FROM hockey_player
-INNER JOIN team ON hockey_player.team = team._id;
+INNER JOIN teamImpl ON hockey_player.teamImpl = teamImpl._id;

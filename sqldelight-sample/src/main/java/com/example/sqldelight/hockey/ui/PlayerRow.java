@@ -7,8 +7,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.sqldelight.hockey.R;
-import com.example.sqldelight.hockey.data.Player;
-import com.example.sqldelight.hockey.data.Team;
+import com.example.sqldelight.hockey.data.PlayerImpl;
+import com.example.sqldelight.hockey.data.TeamImpl;
 
 public final class PlayerRow extends LinearLayout {
   @BindView(R.id.player_name) TextView playerName;
@@ -24,9 +24,9 @@ public final class PlayerRow extends LinearLayout {
     ButterKnife.bind(this);
   }
 
-  public void populate(Player player, Team team) {
+  public void populate(PlayerImpl player, TeamImpl teamImpl) {
     playerName.setText(player.first_name() + " " + player.last_name());
     playerNumber.setText(String.valueOf(player.number()));
-    teamName.setText(team.name());
+    teamName.setText(teamImpl.name());
   }
 }

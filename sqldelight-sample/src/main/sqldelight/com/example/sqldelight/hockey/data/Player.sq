@@ -1,4 +1,5 @@
 import com.example.sqldelight.hockey.data.Player;
+import com.example.sqldelight.hockey.data.PlayerImpl;
 import java.util.Calendar;
 
 CREATE TABLE player (
@@ -6,26 +7,31 @@ CREATE TABLE player (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   number INTEGER AS Integer NOT NULL,
-  team INTEGER,
+  teamImpl INTEGER,
   age INTEGER AS Integer NOT NULL,
   weight REAL AS Float NOT NULL,
   birth_date INTEGER AS Calendar NOT NULL,
-  shoots TEXT AS Player.Shoots NOT NULL,
-  position TEXT AS Player.Position NOT NULL,
-  FOREIGN KEY (team) REFERENCES team(_id)
+  shoots TEXT AS PlayerImpl.Shoots NOT NULL,
+  position TEXT AS PlayerImpl.Position NOT NULL,
+  FOREIGN KEY (teamImpl) REFERENCES team(_id)
 );
-
-insert_player:
-INSERT INTO player (first_name, last_name, number, team, age, weight, birth_date, shoots, position)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 select_all:
 SELECT *
 FROM player
-JOIN team ON player.team = team._id;
+JOIN team ON player.teamImpl = team._id;
+
+select_all_fat:
+SELECT *
+FROM player
+WHERE weight > ?;
+
+insert_player:
+INSERT INTO player (first_name, last_name, number, teamImpl, age, weight, birth_date, shoots, position)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 for_team:
 SELECT *
 FROM player
-JOIN team ON player.team = team._id
+JOIN team ON player.teamImpl = team._id
 WHERE team._id = ?;

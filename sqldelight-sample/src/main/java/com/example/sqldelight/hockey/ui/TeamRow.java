@@ -7,7 +7,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.sqldelight.hockey.R;
-import com.example.sqldelight.hockey.data.Team;
+import com.example.sqldelight.hockey.data.TeamImpl;
 import java.text.SimpleDateFormat;
 
 public final class TeamRow extends LinearLayout {
@@ -26,9 +26,9 @@ public final class TeamRow extends LinearLayout {
     ButterKnife.bind(this);
   }
 
-  public void populate(Team team) {
-    teamName.setText(team.name());
-    coachName.setText(team.coach());
-    founded.setText(getContext().getString(R.string.founded, df.format(team.founded().getTime())));
+  public void populate(TeamImpl teamImpl) {
+    teamName.setText(teamImpl.name());
+    coachName.setText(teamImpl.coach());
+    founded.setText(getContext().getString(R.string.founded, df.format(teamImpl.founded().getTime())));
   }
 }
