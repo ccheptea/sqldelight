@@ -95,13 +95,13 @@ open class SqlDelightTask : SourceTask() {
         throw SqlitePluginException(status.originatingElement,
             status.message(inputFileDetails.file))
       } else if (status is Status.Success) {
-        JavaFile.builder(inputFileDetails.file.relativePackage(), status.modelSuper).build()
-                .writeTo(outputDirectory)
+//        JavaFile.builder(inputFileDetails.file.relativePackage(), status.modelSuper).build()
+//                .writeTo(outputDirectory)
+//
+//        val modelSuperInterface = ClassName.get(inputFileDetails.file.relativePackage(), status.modelSuper.name);
+//        val extendedModel = status.model.toBuilder().addSuperinterface(modelSuperInterface).build()
 
-        val modelSuperInterface = ClassName.get(inputFileDetails.file.relativePackage(), status.modelSuper.name);
-        val extendedModel = status.model.toBuilder().addSuperinterface(modelSuperInterface).build()
-
-        JavaFile.builder(inputFileDetails.file.relativePackage(), extendedModel).build()
+        JavaFile.builder(inputFileDetails.file.relativePackage(), status.model).build()
             .writeTo(outputDirectory)
       }
     }

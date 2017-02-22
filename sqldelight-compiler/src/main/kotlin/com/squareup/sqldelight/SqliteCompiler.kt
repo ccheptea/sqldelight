@@ -35,11 +35,11 @@ class SqliteCompiler {
     ): Status {
         try {
             val className = interfaceName(relativePath.pathFileName())
-            val classNameSuper = interfaceNameSuper(relativePath.pathFileName())
+//            val classNameSuper = interfaceNameSuper(relativePath.pathFileName())
 
             val typeSpec = TypeSpec.interfaceBuilder(className)
-            val typeSpecSuper = TypeSpec.interfaceBuilder(classNameSuper)
-                    .addModifiers(PUBLIC)
+//            val typeSpecSuper = TypeSpec.interfaceBuilder(classNameSuper)
+//                    .addModifiers(PUBLIC)
 
             status.queries.filter { it.requiresType }.forEach { queryResults ->
                 typeSpec.addType(queryResults.generateInterface())
@@ -104,10 +104,10 @@ class SqliteCompiler {
                         methodSpec.addAnnotations(column.annotations)
                     }
 
-                    typeSpec.addField(columnConstantBuilder.build())
-                    //typeSpec.addMethod(methodSpec.build())
+//                    typeSpec.addField(columnConstantBuilder.build())
+                    typeSpec.addMethod(methodSpec.build())
                     //typeSpecSuper.addField(columnConstantBuilder.build())
-                    typeSpecSuper.addMethod(methodSpec.build())
+//                    typeSpecSuper.addMethod(methodSpec.build())
                 }
 
                 typeSpec.addType(MarshalSpec.builder(table).build())
@@ -123,7 +123,7 @@ class SqliteCompiler {
                 typeSpec.addField(field.build())
             }
 
-            return Status.Success(parseContext, typeSpec.build(), typeSpecSuper.build())
+            return Status.Success(parseContext, typeSpec.build())
         } catch (e: SqlitePluginException) {
             return Status.Failure(e.originatingElement, e.message)
         } catch (e: IOException) {
